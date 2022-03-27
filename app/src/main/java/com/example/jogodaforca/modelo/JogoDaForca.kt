@@ -8,12 +8,14 @@ class JogoDaForca {
     public var palavraSecreta = mutableListOf<Char>()
     public var end = false
     public var letrasUtilizadas: String = String()
+    public var acertos: Int
 
     constructor(palavra: String, dica: String, tentativa: Int){
         this.tamanhoPalavra()
         this.palavra = palavra
         this.dica = dica
         this.tentativa = tentativa
+        this.acertos = 0
     }
 
     fun esconder() {
@@ -53,6 +55,7 @@ class JogoDaForca {
             for ((i, item) in palavra.lowercase().withIndex()) {
                 if (letra[0].lowercaseChar() == item.lowercaseChar()) {
                     tentativaErro = true
+                    this.acertos++
                     palavraSecreta[i] =  letra[0].uppercaseChar()
                 }
             }
@@ -81,4 +84,5 @@ class JogoDaForca {
         }
 
     }
+
 }

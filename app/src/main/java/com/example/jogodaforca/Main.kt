@@ -13,7 +13,7 @@ fun main(args: Array<String>) {
     println("Palavra: ${fachada.palavra()}")
 
     while(!fachada.terminou()){
-        fachada.jogo()
+//        fachada.jogo()
         println("Palavra: ${fachada.palavra()}")
         println("Tentativas: ${fachada.tentativas()}")
     }

@@ -28,10 +28,13 @@ class Fachada {
         return jogoDaForca.dica
     }
 
-    fun jogo() {
-        print("Digite uma Letra: ")
-        var palavras = readLine()!!
-        jogoDaForca.verifyLetra(palavras)
+    fun jogo(palavra: String) {
+        try {
+            jogoDaForca.verifyLetra(palavra.trim())
+        }
+        catch (e: Throwable) {
+            println(e.message)
+        }
     }
 
     fun esconderPalavra() {
@@ -54,4 +57,18 @@ class Fachada {
         return jogoDaForca.end
     }
 
+   fun Ganhou():Boolean {
+       return jogoDaForca.acertos == jogoDaForca.tamanhoPalavra()
+   }
+
+   fun Perdeu():Boolean {
+       return jogoDaForca.tentativa == 0
+   }
+
+   fun resultado():String {
+       if(Ganhou()) {
+           return "Você Ganhou!"
+       }
+       return "Você Perdeu!"
+   }
 }
