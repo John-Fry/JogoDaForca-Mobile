@@ -2,4 +2,5 @@
 Jogo da Forca desenvolvido em Kotlin com interface gráfica para a Disciplina de Programação para Móveis - IFPB
 
 
-![Screenshot_20220326_213519](https://user-images.githubusercontent.com/62351565/160261734-fae8b5a2-d8f2-4c7d-90a2-175ab75a68f4.png)
+
+![Screenshot_20220409_200438](https://user-images.githubusercontent.com/62351565/162594463-a18075c6-18e4-4c19-8b33-b1652201956c.png)
