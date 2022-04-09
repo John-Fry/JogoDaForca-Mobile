@@ -11,12 +11,19 @@ class Fachada {
     fun adicionar() {
         this.banco.add("Bola", "Usado no futebol")
         this.banco.add("Pastel", "Comida desprovida de recheio")
+        this.banco.add("Laranja", "Fruta")
+        this.banco.add("Cavalo", "Animal")
+        this.banco.add("Bola", "Usado no futebol")
+        this.banco.add("Lapis", "Material Escolar")
+        this.banco.add("Caneta", "Material Escolar")
+        this.banco.add("Xicara", "Recipiente com asa")
+        this.banco.add("Peixe", "Animal Aquático")
     }
 
     fun start() {
         this.adicionar()
         this.banco.sorteio()
-        jogoDaForca = JogoDaForca(this.banco.palavra(), this.banco.dica(), 7)
+        jogoDaForca = JogoDaForca(this.banco.palavra(), this.banco.dica(), 6)
         jogoDaForca.esconder()
     }
 

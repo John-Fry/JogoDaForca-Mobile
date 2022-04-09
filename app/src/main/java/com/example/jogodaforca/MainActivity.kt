@@ -1,13 +1,11 @@
 package com.example.jogodaforca
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import com.example.jogodaforca.fachada.Fachada
 
 class MainActivity : AppCompatActivity() {
@@ -17,7 +15,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewJogo: TextView
     private lateinit var inputLetra: EditText
     private lateinit var bntJogar: Button
-
+    private lateinit var imageForca: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,31 +28,48 @@ class MainActivity : AppCompatActivity() {
         this.viewJogo = findViewById(R.id.textView3)
         this.inputLetra = findViewById(R.id.inputLetra)
         this.bntJogar = findViewById(R.id.bntJogar)
-        this.viewDica.text = this.jogo.dica()
+        this.imageForca = findViewById(R.id.imageView)
+        this.viewDica.text = "Dica: ${this.jogo.dica()}"
         this.viewPalavra.text = this.jogo.palavra()
-        this.viewJogo.text = "Número de tentativas ${jogo.tentativas()}"
+        this.viewJogo.text = "Número de tentativas: ${jogo.tentativas()}"
 
-        this.bntJogar.setOnClickListener(ButtonClick())
-    }
+        this.bntJogar.setOnClickListener {
+            val letra = this.inputLetra.text.toString()
+            this.jogo.jogo(letra)
+            this.viewPalavra.text = this.jogo.palavra()
+            this.viewJogo.text = "Número de tentativas: ${jogo.tentativas()}"
 
-    inner class ButtonClick: View.OnClickListener {
-        override fun onClick(p0: View?) {
-            val letra = this@MainActivity.inputLetra.text.toString()
-            this@MainActivity.jogo.jogo(letra)
-            this@MainActivity.viewPalavra.text = this@MainActivity.jogo.palavra()
-            this@MainActivity.viewJogo.text = "Número de tentativas ${jogo.tentativas()}"
             if (letra.length == 1) {
                 Log.i("JogoDaForca", "${letra.uppercase().first()}")
             }else {
-                Toast.makeText(this@MainActivity, "Jogada Inválidaa", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Jogada Inválidaa", Toast.LENGTH_SHORT).show()
             }
 
-            if (jogo.terminou()) {
-                this@MainActivity.viewJogo.text = "Número de tentativas ${jogo.tentativas()}\n\n${jogo.resultado()}"
-                this@MainActivity.bntJogar.isEnabled = false
+            if (jogo.Perdeu()) {
+                this.bntJogar.isEnabled = false
+                val intent = Intent(this, result::class.java).apply {
+                    putExtra("Result", "Perdeu!")
+                }
+                if (intent.resolveActivity(packageManager) != null) {
+                    startActivity(intent)
+                }
             }
+
+            if (jogo.Ganhou()) {
+                this.bntJogar.isEnabled = false
+                val intent = Intent(this, result::class.java).apply {
+                    putExtra("Result", "Ganhou!")
+                }
+                if (intent.resolveActivity(packageManager) != null) {
+                    startActivity(intent)
+                }
+            }
+
+            var penalidade = "part${this.jogo.tentativas()}"
+            this.imageForca.setImageResource(getResources().getIdentifier(penalidade , "drawable", getPackageName()))
         }
     }
+
 
 
 }
